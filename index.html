@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liba ❤️ Sharon</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body{
+    background:black;
+    color:white;
+    overflow:hidden;
+}
+
+/* Background Overlay */
+.hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4)),
+               url("liba.jpg") center/cover no-repeat;
+}
+
+/* Netflix Logo Style */
+.logo{
+    position:absolute;
+    top:20px;
+    left:30px;
+    font-size:28px;
+    font-weight:bold;
+    color:#e50914;
+    letter-spacing:2px;
+}
+
+/* Main Title */
+h1{
+    font-size:48px;
+    margin-bottom:15px;
+}
+
+h2{
+    font-weight:400;
+    margin-bottom:25px;
+    color:#ccc;
+}
+
+/* Buttons */
+.buttons{
+    margin-top:20px;
+}
+
+button{
+    padding:12px 28px;
+    margin:10px;
+    font-size:16px;
+    border:none;
+    cursor:pointer;
+    border-radius:4px;
+    transition:0.3s;
+}
+
+#yesBtn{
+    background:#e50914;
+    color:white;
+}
+
+#yesBtn:hover{
+    background:#f40612;
+    transform:scale(1.05);
+}
+
+#noBtn{
+    background:rgba(109,109,110,0.7);
+    color:white;
+    position:absolute;
+}
+
+#funText{
+    margin-top:20px;
+    color:#ffb3b3;
+    font-size:18px;
+}
+
+/* Second Page */
+#page2{
+    display:none;
+    height:100vh;
+    background:linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4)),
+               url("couple.jpg") center/cover no-repeat;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.celebrate{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.subtitle{
+    font-size:22px;
+    color:#ddd;
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);opacity:1;}
+    to{transform:translateY(-10vh);opacity:0;}
+}
+</style>
+</head>
+
+<body onclick="document.getElementById('bgMusic').play()">
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="hero" id="page1">
+
+    <div class="logo">SHARONFLIX</div>
+
+    <h1>Liba ❤️</h1>
+    <h2>Will you be my Valentine?</h2>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <div id="funText"></div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="hero">
+
+    <div class="logo">SHARONFLIX</div>
+
+    <div class="celebrate">She Said YES 😭💖</div>
+    <div class="subtitle">Forever begins now, Liba.</div>
+    <div class="subtitle">Love you endlessly ❤️ – Sharon</div>
+
+</div>
+
+<script>
+
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const funText=document.getElementById("funText");
+const page1=document.getElementById("page1");
+const page2=document.getElementById("page2");
+
+let noCount=0;
+
+/* Moving No Button */
+noBtn.addEventListener("mouseover",()=>{
+    const x=Math.random()*(window.innerWidth-100);
+    const y=Math.random()*(window.innerHeight-50);
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+});
+
+noBtn.addEventListener("click",()=>{
+    noCount++;
+
+    if(noCount==1){
+        funText.innerHTML="Are you sure, Liba? 🥺";
+    }
+    else if(noCount==2){
+        funText.innerHTML="Think again… Sharon is premium quality 😌";
+    }
+    else if(noCount==3){
+        funText.innerHTML="This plan has no cancellation option 😂";
+    }
+    else{
+        funText.innerHTML="Error 404: No not found. Press YES.";
+    }
+
+    const audio=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+    audio.play();
+});
+
+/* YES */
+yesBtn.addEventListener("click",()=>{
+    page1.style.display="none";
+    page2.style.display="flex";
+    setInterval(createHeart,400);
+});
+
+/* Floating Hearts */
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="❤️";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*20+20)+"px";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{heart.remove();},6000);
+}
+
+</script>
+
+</body>
+</html>
